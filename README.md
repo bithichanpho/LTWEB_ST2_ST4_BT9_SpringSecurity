@@ -1,0 +1,4 @@
+# DEMO USER 
+DEMO_USERNAME=user01
+
+DEMO_EMAIL=user01@gmail.com
