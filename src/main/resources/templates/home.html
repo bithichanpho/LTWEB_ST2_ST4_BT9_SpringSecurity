@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <title>Trang chủ</title>
+</head>
+<body>
+
+<main layout:fragment="content">
+
+    <section class="hero panel">
+        <div>
+            <p class="eyebrow">UTEShop</p>
+            <h1>Xin chào, <span th:text="${user.fullName}">Tran Thi Phuong Trang</span></h1>
+            <p class="muted">Bạn đang đăng nhập bằng <strong th:text="${user.username}">user01</strong>.</p>
+            <div class="hero-actions">
+                <a class="btn primary" th:href="@{/products}">Xem sản phẩm</a>
+                <a class="btn secondary" th:href="@{/categories}">Xem danh mục</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-block">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">Danh mục</p>
+                <h2>Danh mục sản phẩm</h2>
+            </div>
+            <a class="text-link" th:href="@{/categories}">Xem tất cả</a>
+        </div>
+
+        <div class="category-grid">
+            <a class="category-card" th:each="category : ${categories}" th:href="@{/categories}">
+                <img th:src="@{'/image/' + ${category.images}}"
+                     th:alt="${category.categoryName}">
+                <div>
+                    <h3 th:text="${category.categoryName}">Quần áo nam</h3>
+                    <p>Sản phẩm trong danh mục</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section class="section-block">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">Catalog</p>
+                <h2>Sản phẩm</h2>
+            </div>
+            <a class="text-link" th:href="@{/products}">Xem tất cả</a>
+        </div>
+
+        <div class="product-grid">
+            <article class="product-card" th:each="product, stat : ${products}" th:if="${stat.index < 8}">
+                <a th:href="@{/products/{id}(id=${product.productId})}">
+                    <img th:src="@{'/image/' + ${product.images}}"
+                         th:alt="${product.productName}">
+                </a>
+                <div class="product-body">
+                    <p class="product-category" th:text="${product.category.categoryName}">Quần áo nam</p>
+                    <h3 th:text="${product.productName}">Quần Jeans</h3>
+                    <div class="product-meta">
+                        <strong th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} + ' ₫'">399,000 ₫</strong>
+                        <span th:text="'Còn ' + ${product.quantity}">Còn 50</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+</main>
+
+</body>
+</html>
