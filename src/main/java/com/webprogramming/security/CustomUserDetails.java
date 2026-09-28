@@ -11,6 +11,8 @@ import java.util.List;
 @Getter
 public class CustomUserDetails implements UserDetails {
 
+	private static final long serialVersionUID = 1L;
+
 	private final Long id;
 	private final String username;
 	private final String email;

@@ -42,10 +42,9 @@ public class SecurityConfig {
 			throws Exception {
 
 		http.authenticationProvider(authenticationProvider).authorizeHttpRequests(auth -> auth
-				.requestMatchers("/login", "/css/**", "/js/**", "/images/**", "/image/**", "/uploads/**", "/error")
+				.requestMatchers("/login", "/css/**", "/js/**", "/images/**", "/uploads/**", "/error")
 				.permitAll().requestMatchers("/admin/**").hasRole("ADMIN").anyRequest().authenticated())
-				.formLogin(form -> form.loginPage("/login").loginProcessingUrl("/login").usernameParameter("username")
-						.passwordParameter("password").defaultSuccessUrl("/", true).failureUrl("/login?error=true")
+				.formLogin(form -> form.loginPage("/login").loginProcessingUrl("/login").defaultSuccessUrl("/", true).failureUrl("/login?error=true")
 						.permitAll())
 				.logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/login?logout=true")
 						.invalidateHttpSession(true).deleteCookies("JSESSIONID").permitAll());

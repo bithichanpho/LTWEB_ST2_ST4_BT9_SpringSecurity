@@ -14,18 +14,16 @@
 
     <nav>
         <a th:href="@{/}">Trang chủ</a>
-        <a th:href="@{/categories}">Danh mục</a>
-        <a th:href="@{/products}">Sản phẩm</a>
     </nav>
 
     <div class="account"
          th:if="${#authorization.expression('isAuthenticated()')}">
 
         <img class="avatar"
-             th:src="${#authentication.principal.images != null
+             th:src="@{${#authentication.principal.images != null
                 and !#strings.isEmpty(#authentication.principal.images)
                 ? #authentication.principal.images
-                : '/images/avatar-default.svg'}"
+                : '/images/avatar-default.svg'}}"
              alt="Avatar">
 
         <div class="user-info">
@@ -33,17 +31,21 @@
                 Nguyễn Văn A
             </strong>
 
-            <span th:text="'@' + ${#authentication.principal.username}">
-                @user01
+            <span th:text="'(' + ${#authentication.principal.username} + ')'">
+                (user01)
+            </span>
+
+            <span th:text="${#authentication.principal.email}">
+                email@gmail.com
+            </span>
+
+            <span th:text="${#authentication.principal.role}">
+                ROLE_USER
             </span>
         </div>
 
         <form th:action="@{/logout}"
               method="post">
-
-            <input type="hidden"
-                   th:name="${_csrf.parameterName}"
-                   th:value="${_csrf.token}">
 
             <button class="logout-button" type="submit">
                 Đăng xuất
